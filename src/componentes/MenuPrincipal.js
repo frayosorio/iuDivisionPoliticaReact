@@ -36,7 +36,7 @@ const MenuPrincipal = () => {
                 {
                     ['Paises', 'Regiones', 'Ciudades'].map((texto, indice) => (
                         <ListItem button component="a" href={`/${texto}`}>
-                            <img src={require(`../assets/iconos/${texto}.png`).default} />
+                            <img src={require(`../assets/iconos/${texto}.png`)} />
                             <ListItemText primary={texto} />
                         </ListItem>
                     )
