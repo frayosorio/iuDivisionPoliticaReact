@@ -5,6 +5,7 @@ import ModalEditar from '../componentes/EditarPais/Modal';
 
 import { obtenerEstilos, listarPaises } from '../servicios/Listas';
 import { Pais } from '../modelos/modelos';
+import Confirmacion from '../componentes/Confirmacion'
 
 const columnas = [
     { field: "id", headerName: "ID", width: 100 },
@@ -33,6 +34,7 @@ const Paises = () => {
     const [estadoListado, setEstadoListado] = useState(true);
     const [estadoModal, setEstadoModal] = useState(false);
     const [paisEditado, setPaisEditado] = useState({});
+    const [estadoConfirmacion, setEstadoConfirmacion] = useState(false);
 
     var paisSeleccionado;
 
@@ -52,14 +54,31 @@ const Paises = () => {
             setPaisEditado(paisSeleccionado);
             setEstadoModal(true);
         }
+        else {
+            window.alert("Por favor seleccione el país a editar");
+        }
     }
 
     const eliminar = () => {
-
+        if (paisSeleccionado) {
+            setEstadoConfirmacion(true);
+        }
+        else {
+            window.alert("Por favor seleccione el país a eliminar");
+        }
     }
 
     const cerrarModal = () => {
         setEstadoModal(false);
+    }
+
+    const cerrarConfirmacion = () => {
+        setEstadoConfirmacion(false);
+    }
+
+    const aceptarConfirmacion = () => {
+        setEstadoConfirmacion(false);
+        //instrucciones para eliminar
     }
 
     return (
@@ -99,7 +118,12 @@ const Paises = () => {
                 />
 
                 <ModalEditar estado={estadoModal} cerrar={cerrarModal} pais={paisEditado} />
-
+                <Confirmacion open={estadoConfirmacion}
+                    titulo="Eliminado País"
+                    mensaje="Está seguro?"
+                    cerrar={cerrarConfirmacion}
+                    aceptar={aceptarConfirmacion}
+                />
             </div>
         </div>
     );

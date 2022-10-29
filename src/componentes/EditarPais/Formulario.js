@@ -15,7 +15,8 @@ const Formulario = ({ cerrarFormulario, paisEditado }) => {
     const [tipoRegion, setTipoRegion] = useState(paisEditado.tipoRegion);
 
     const guardar = async (e) => {
-        fetch("http://localhost:3030/paises/agregar",
+        let url = paisEditado.id >= 0 ? "http://localhost:3030/paises/modificar" : "http://localhost:3030/paises/agregar";
+        fetch(url,
             {
                 method: 'post',
                 headers: {
@@ -34,11 +35,11 @@ const Formulario = ({ cerrarFormulario, paisEditado }) => {
             }
         ).then((res) => res.json())
             .then((json) => {
-                window.alert(`El país [${json.nombre}] fue agregado`);
+                window.alert(`El país [${json.nombre}] fue ${paisEditado.id >= 0 ? "modificado": "agregado"}`);
                 cerrarFormulario();
             })
             .catch((error) => {
-                window.alert(`Error agregando país: ${error}`);
+                window.alert(`Error actualizando país: ${error}`);
             })
     }
 
