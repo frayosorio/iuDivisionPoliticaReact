@@ -61,6 +61,7 @@ const Paises = () => {
 
     const eliminar = () => {
         if (paisSeleccionado) {
+            setPaisEditado(paisSeleccionado);
             setEstadoConfirmacion(true);
         }
         else {
@@ -77,8 +78,23 @@ const Paises = () => {
     }
 
     const aceptarConfirmacion = () => {
-        setEstadoConfirmacion(false);
-        //instrucciones para eliminar
+        fetch(`http://localhost:3030/paises/${paisEditado.id}`,
+            { method: 'delete' }
+        )
+            .then((res) => {
+                if (res.status != 200) {
+                    throw Error(res.statusText);
+                }
+                return res.json();
+            })
+            .then((json) => {
+                window.alert(json.mensaje);
+                setEstadoListado(true);
+            })
+            .catch((error) => {
+                window.alert(`Error eliminando País: ${error}`);
+            });
+
     }
 
     return (

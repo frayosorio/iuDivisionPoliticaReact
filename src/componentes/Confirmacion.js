@@ -32,6 +32,7 @@ const Confirmacion = ({ open, titulo, mensaje, cerrar, aceptar }) => {
                         if (aceptar) {
                             aceptar();
                         }
+                        cerrar();
                     }
                     }
                 >Sí</Button>

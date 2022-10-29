@@ -24,7 +24,7 @@ const Formulario = ({ cerrarFormulario, paisEditado }) => {
                     'Accept': 'application/json'
                 },
                 body: JSON.stringify({
-                    id: id,
+                    id: eval(id),
                     nombre: nombre,
                     continente: continente,
                     tipoRegion: tipoRegion,
