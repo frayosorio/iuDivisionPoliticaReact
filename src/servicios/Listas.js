@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/core";
-import { Pais } from "../modelos/modelos";
+import { Pais, Region } from "../modelos/modelos";
 
 export const obtenerEstilos = makeStyles(tema => ({
     botonAgregar: {
@@ -70,6 +70,32 @@ export const listarPaises = () => {
         .catch(function (error) {
             window.alert(`Error consultando paises [${error}]`);
         });
+}
 
 
+export const listarRegiones = (idPais) => {
+    //Consultar la lista de paises desde la API
+    return fetch(`http://localhost:3030/regiones/${idPais}`,
+        {
+            method: "GET",
+        })
+        .then((res) => {
+            if (!res.ok) {
+                throw new Error(`HTTP error, estado=${res.status}`);
+            }
+            return res.json();
+        })
+        .then((json) => {
+            var regiones = [];
+            json.map((item) => {
+                regiones.push(new Region(item.nombre,
+                    item.area,
+                    item.poblacion
+                ));
+            });
+            return regiones;
+        })
+        .catch(function (error) {
+            window.alert(`Error consultando regiones [${error}]`);
+        });
 }
