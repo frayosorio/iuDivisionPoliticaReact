@@ -52,19 +52,24 @@ export const listarPaises = () => {
             if (!res.ok) {
                 throw new Error(`HTTP error, estado=${res.status}`);
             }
-            return res.json();
+            return res.text();
+        })
+        .then((data) => {
+            return data.length == 0 ? '{}' : JSON.parse(data);
         })
         .then((json) => {
             var paises = [];
-            json.map((item) => {
-                paises.push(new Pais(item.id,
-                    item.nombre,
-                    item.codigoAlfa2,
-                    item.codigoAlfa3,
-                    item.tipoRegion,
-                    item.continente
-                ));
-            });
+            if (json != '{}') {
+                json.map((item) => {
+                    paises.push(new Pais(item.id,
+                        item.nombre,
+                        item.codigoAlfa2,
+                        item.codigoAlfa3,
+                        item.tipoRegion,
+                        item.continente
+                    ));
+                });
+            }
             return paises;
         })
         .catch(function (error) {
@@ -83,16 +88,22 @@ export const listarRegiones = (idPais) => {
             if (!res.ok) {
                 throw new Error(`HTTP error, estado=${res.status}`);
             }
-            return res.json();
+            return res.text();
+        })
+        .then((data) => {
+            return data.length == 0 ? '{}' : JSON.parse(data);
         })
         .then((json) => {
             var regiones = [];
-            json.map((item) => {
-                regiones.push(new Region(item.nombre,
-                    item.area,
-                    item.poblacion
-                ));
-            });
+            if (json != '{}') {
+                json.map((item, indice) => {
+                    regiones.push(new Region(indice,
+                        item.nombre,
+                        item.area,
+                        item.poblacion
+                    ));
+                });
+            }
             return regiones;
         })
         .catch(function (error) {

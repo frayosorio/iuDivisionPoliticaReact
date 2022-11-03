@@ -7,7 +7,8 @@ export const Pais = function (id, nombre, codigoAlfa2, codigoAlfa3, tipoRegion, 
     this.continente = continente;
 }
 
-export const Region = function (nombre, area, poblacion) {
+export const Region = function (id, nombre, area, poblacion) {
+    this.id = id;
     this.nombre = nombre;
     this.area = area;
     this.poblacion = poblacion;

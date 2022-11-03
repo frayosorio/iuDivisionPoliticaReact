@@ -31,7 +31,7 @@ const Paises = () => {
         setEstadoListado(false);
     }
 
-    const [estadoListado, setEstadoListado] = useState(false);
+    const [estadoListado, setEstadoListado] = useState(true);
     const [estadoModal, setEstadoModal] = useState(false);
     const [paisEditado, setPaisEditado] = useState({});
     const [estadoConfirmacion, setEstadoConfirmacion] = useState(false);

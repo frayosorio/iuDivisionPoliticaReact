@@ -10,8 +10,8 @@ import Confirmacion from '../componentes/Confirmacion'
 
 const columnas = [
     { field: "nombre", headerName: "Nombre", width: 300 },
-    { field: "area", headerName: "Área", width: 100 },
-    { field: "poblacion", headerName: "Población", width: 100 },
+    { field: "area", headerName: "Área", width: 200 },
+    { field: "poblacion", headerName: "Población", width: 200 },
 ]
 
 const Regiones = () => {
@@ -36,7 +36,7 @@ const Regiones = () => {
         setEstadoListadoPaises(false);
     }
 
-    const [estadoListado, setEstadoListado] = useState(true);
+    const [estadoListado, setEstadoListado] = useState(false);
     const [estadoListadoPaises, setEstadoListadoPaises] = useState(true);
     const [estadoModal, setEstadoModal] = useState(false);
     const [regionEditada, setRegionEditada] = useState({});
@@ -53,10 +53,15 @@ const Regiones = () => {
     }
 
     const agregar = () => {
-        const paisE = new Region(-1, "", "", "", "", "");
+        if (pais.id) {
+            const regionE = new Region(-1, "", 0, 0);
 
-        setRegionEditada(paisE);
-        setEstadoModal(true);
+            setRegionEditada(regionE);
+            setEstadoModal(true);
+        }
+        else {
+            window.alert("Por favor seleccione un país para la región a agregar");
+        }
     }
 
     const modificar = () => {
@@ -81,6 +86,7 @@ const Regiones = () => {
 
     const cerrarModal = () => {
         setEstadoModal(false);
+        setEstadoListado(true);
     }
 
     const cerrarConfirmacion = () => {
@@ -159,14 +165,13 @@ const Regiones = () => {
                                 return fila.id == idRegiones[0];
                             }
                         );
-
                         regionSeleccionada = regionesSeleccionados[0];
                     }
 
                     }
                 />
 
-                <ModalEditar estado={estadoModal} cerrar={cerrarModal} pais={regionEditada} />
+                <ModalEditar estado={estadoModal} cerrar={cerrarModal} region={regionEditada} idpais={pais.id} />
                 <Confirmacion open={estadoConfirmacion}
                     titulo="Eliminado Región"
                     mensaje="Está seguro?"
