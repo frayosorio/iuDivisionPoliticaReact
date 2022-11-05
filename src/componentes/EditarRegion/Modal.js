@@ -1,10 +1,14 @@
-import Dialog from "@material-ui/core/Dialog"
+import { Dialog, DialogTitle } from "@material-ui/core";
 import Formulario from "./Formulario";
 
-const ModalEditar = ({ estado, cerrar, region, idpais }) => {
+const ModalEditar = ({ estado, cerrar, region, pais }) => {
     return (
         <Dialog open={estado} onClose={cerrar} >
-            <Formulario cerrarFormulario={cerrar} regionEditada={region} idpais={idpais}/>
+             <DialogTitle>
+                {region.id>=0?"Modificando región del país ":" Agregando región del país "}
+                {pais.nombre}            
+            </DialogTitle>
+            <Formulario cerrarFormulario={cerrar} regionEditada={region} pais={pais}/>
         </Dialog>
     );
 }

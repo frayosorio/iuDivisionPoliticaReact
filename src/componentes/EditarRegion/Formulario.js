@@ -2,7 +2,7 @@ import { obtenerEstilosModal } from '../../servicios/Listas';
 import { TextField, Button } from "@material-ui/core";
 import React, { useState } from "react";
 
-const Formulario = ({ cerrarFormulario, regionEditada, idpais }) => {
+const Formulario = ({ cerrarFormulario, regionEditada, pais }) => {
 
     const estilos = obtenerEstilosModal();
 
@@ -11,8 +11,8 @@ const Formulario = ({ cerrarFormulario, regionEditada, idpais }) => {
     const [poblacion, setPoblacion] = useState(regionEditada.poblacion);
 
     const guardar = async (e) => {
-        let url = regionEditada.id >= 0 ? `http://localhost:3030/regiones/modificar/${idpais}`: 
-        `http://localhost:3030/regiones/agregar/${idpais}`;
+        let url = regionEditada.id >= 0 ? `http://localhost:3030/regiones/modificar/${pais.id}/${regionEditada.nombre}`: 
+        `http://localhost:3030/regiones/agregar/${pais.id}`;
         fetch(url,
             {
                 method: 'post',

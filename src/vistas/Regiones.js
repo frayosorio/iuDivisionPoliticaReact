@@ -94,7 +94,7 @@ const Regiones = () => {
     }
 
     const aceptarConfirmacion = () => {
-        fetch(`http://localhost:3030/regiones/${regionEditada.id}`,
+        fetch(`http://localhost:3030/regiones/${pais.id}/${regionEditada.nombre}`,
             { method: 'delete' }
         )
             .then((res) => {
@@ -171,9 +171,10 @@ const Regiones = () => {
                     }
                 />
 
-                <ModalEditar estado={estadoModal} cerrar={cerrarModal} region={regionEditada} idpais={pais.id} />
+                <ModalEditar estado={estadoModal} cerrar={cerrarModal} region={regionEditada} pais={pais} />
+
                 <Confirmacion open={estadoConfirmacion}
-                    titulo="Eliminado Región"
+                    titulo="Eliminando Región"
                     mensaje="Está seguro?"
                     cerrar={cerrarConfirmacion}
                     aceptar={aceptarConfirmacion}
